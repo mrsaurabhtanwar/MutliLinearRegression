@@ -27,4 +27,4 @@ jobs:
             
         - name: Run tests
           run: |
-            python -c "import joblib print("All import successfully!")"
+            python -c "import joblib print('All import successfully!')"
