@@ -29,15 +29,17 @@ class PricePre(Base):
     area_population = Column(Integer, nullable=False)
     members = Column(Integer, nullable=False)
     longitude = Column(Float, nullable=False)
+    pred_price = Column(Float, nullable=False)
     datetime = Column(DateTime, nullable=False)
     latency = Column(Float, nullable=False)
     error = Column(String)
     
 Base.metadata.create_all(engine)
 
-db = sessionLocal()
+
 
 def get_db():
+    db = sessionLocal()
     try:
         yield db 
     finally:
@@ -84,6 +86,7 @@ def predication(data: HousingInput, db: Session = Depends(get_db)):
                 area_population=data.area_population,
                 members=data.members,
                 longitude=data.longitude,
+                pred_price=predicted_price,
                 datetime=current_dt,
                 latency=latency,
                 error=None
@@ -104,6 +107,7 @@ def predication(data: HousingInput, db: Session = Depends(get_db)):
                  area_population=data.area_population,
                  members=data.members,
                  longitude=data.longitude,
+                 pred_price=0,
                  datetime=current_dt,
                  latency=0,
                  error=str(e)))
